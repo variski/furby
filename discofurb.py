@@ -65,6 +65,6 @@ async def on_message(message):
 		else:
 			if 'temp' in message.content:
 				move()
-				await message.channel.send(gettemp())
+				await message.channel.send(str(gettemp()).split('.')[0] + '\u00b0C')
 				move()
 client.run(TOKEN)
