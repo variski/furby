@@ -5,6 +5,9 @@ import time
 import os
 import subprocess
 import RPi.GPIO as GPIO
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Declare the GPIO settings
 GPIO.setmode(GPIO.BOARD)
@@ -25,7 +28,7 @@ GPIO.output(13, GPIO.LOW)
 time.sleep(1)
 
 # speak & wait
-os.system('espeak "I am awake" 2>/dev/null')
+subprocess.call(['aplay', os.getenv('SOUND_HI')], shell=False)
 time.sleep(1)
 
 # Drive the motor counterclockwise
@@ -41,5 +44,4 @@ GPIO.output(16, GPIO.LOW) # Set AIN1
 GPIO.output(15, GPIO.LOW) # Set AIN2
 GPIO.output(13, GPIO.LOW) # Set STBY
 
-os.system('espeak "my body is ready" 2>/dev/null')
-
+subprocess.call(['aplay', os.getenv('SOUND_ACTIVATED')], shell=False)
