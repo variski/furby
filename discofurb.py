@@ -42,7 +42,8 @@ def move():
 def gettemp():
 	data = sensor.update()
 	temp = data['temperature']
-	os.system('espeak "The temperature here is '+str(temp)+' degrees celsius."')
+	hum = data['humidity']
+	os.system('espeak "The temperature here is '+str(temp)+' degrees celsius. Humidity is at '+str(hum)+' percent."')
 	return temp
 
 TOKEN = os.getenv('DISCORD_TOKEN')

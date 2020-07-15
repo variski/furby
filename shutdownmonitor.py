@@ -9,5 +9,9 @@ load_dotenv()
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-subprocess.call(['aplay', os.getenv('SOUND_SHUTDOWN')], shell=False)
-subprocess.call(['shutdown', '-h', 'now'], shell=False)
+try:
+	GPIO.wait_for_edge(4, GPIO.FALLING)
+	subprocess.call(['aplay', os.getenv('SOUND_SHUTDOWN')], shell=False)
+	subprocess.call(['shutdown', '-h', 'now'], shell=False)
+except:
+	pass
